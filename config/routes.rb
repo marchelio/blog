@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'users/new'
-
   #get 'static_pages/home'
 
   match '/home', to: 'static_pages#home', via: 'get'
@@ -15,6 +13,8 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
+  #users by 2app
+  resources :users
 
   get 'welcome/index'
 
