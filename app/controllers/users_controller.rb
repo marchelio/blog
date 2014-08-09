@@ -17,12 +17,12 @@ before_action :admin_user,     only: :destroy
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      sign_in user
-      redirect_back_or user
+    @user = User.new(user_params)
+    if @user.save
+      sign_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      redirect_to @user
     else
-      flash.now[:error] = 'Invalid email/password combination'
       render 'new'
     end
   end
@@ -40,7 +40,7 @@ before_action :admin_user,     only: :destroy
       render 'edit'
     end
   end
-  
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
@@ -57,7 +57,7 @@ before_action :admin_user,     only: :destroy
     # Before filters
 
     def signed_in_user
-      unless signed_in?
+    unless signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in."
       end
