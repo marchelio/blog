@@ -4,10 +4,10 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  #get 'static_pages/home'
 
-  match '/home', to: 'static_pages#home', via: 'get'
+  get 'static_pages/home'
 
+  #match '/home', to: 'static_pages#home', via: 'get'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
@@ -26,13 +26,11 @@ Rails.application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
-  get 'welcome/index'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'static_pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
